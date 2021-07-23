@@ -1,4 +1,4 @@
-package completeFlowAutomated;
+package WaitDemo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,33 +13,51 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class EcommerceApp {
 
+	/**
+	 * @param args
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 
 		System.setProperty("webdriver.chrome.driver", "C:\\Code\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
+		
+		/***Implicit Wait***/
+		
 		// driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		@SuppressWarnings("deprecation")
+		
+		/*** Explicit wait-->WebdriverWait ***/
+		
 		WebDriverWait w = new WebDriverWait(driver, 5);
+		
 		String[] veggies = { "Brocolli", "Cauliflower", "Cucumber" };
+		
 		driver.get("https://www.rahulshettyacademy.com/#/practice-project");
+		
 		driver.findElement(By.cssSelector("#name")).sendKeys("Niyati Goyal");
+		
 		driver.findElement(By.cssSelector("#email")).sendKeys("niyatigupta2k9@gmail.com");
+		
 		driver.findElement(By.cssSelector("#form-submit")).click();
+		
 		Thread.sleep(3000);
 		driver.findElement(By.xpath("//*[text()='Automation Practise - 1']")).click();
 		driver.manage().window().maximize();
+		
 		Thread.sleep(3000);
 		addItems(driver, veggies);
 
 		driver.findElement(By.xpath("//img[@alt='Cart']")).click();
 		driver.findElement(By.xpath("//button[text()='PROCEED TO CHECKOUT']")).click();
 
+		/*** Explicit wait-->WebdriverWait ***/
 		w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".promoCode")));
 
 		driver.findElement(By.cssSelector(".promoCode")).sendKeys("rahulshettyacademy");
 		driver.findElement(By.cssSelector(".promoBtn")).click();
 
+		/*** Explicit wait-->WebdriverWait ***/
 		w.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".promoInfo")));
 
 		System.out.println(driver.findElement(By.cssSelector(".promoInfo")).getText());
